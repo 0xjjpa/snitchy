@@ -40,7 +40,6 @@ const Index = () => {
       setLoading(true);
       const tcContract = new Contract(TC_ADDRESS, TC_ABI, wallet.provider);
       const contract = tcContract.connect(wallet);
-      console.log('setLoading', isLoading);
       contract
         .backupNotes([0], {
           gasLimit: 60000,
