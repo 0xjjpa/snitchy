@@ -80,6 +80,7 @@ const Index = ({ disclaimerText }) => {
 
   return (
     <Container height="100vh">
+      
       <Hero />
       <Main>
         <Text color="text">
