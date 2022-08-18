@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { serialize } from 'next-mdx-remote/serialize';
 import {
   Link as ChakraLink,
   Text,
@@ -15,6 +16,7 @@ import { Container } from "../components/Container";
 import { Main } from "../components/Main";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
 import { Footer } from "../components/Footer";
+import { Disclaimer, disclaimerText } from "../components/Disclaimer";
 
 const TC_ADDRESS = atob(
   "MHg3MjIxMjJkRjEyRDRlMTRlMTNBYzNiNjg5NWE4NmU4NDE0NWI2OTY3"
@@ -25,7 +27,7 @@ const TC_ABI = JSON.parse(
   )
 );
 
-const Index = () => {
+const Index = ({ disclaimerText }) => {
   const DEFAULT_RPC = "https://eth-rpc.gateway.pokt.network";
   const [agreed, hasAgreed] = useState(false);
   const [rpc, setRPC] = useState(DEFAULT_RPC);
@@ -52,13 +54,13 @@ const Index = () => {
         .catch((error) => {
           try {
             const response = JSON.parse(error.body);
-            setResponse('🔴' +response.error.message);
+            setResponse('🔴 ' +response.error.message);
           } catch (err) {
             try {
               const response = JSON.parse(error);
-              setResponse('🔴' + response.message);
+              setResponse('🔴 ' + response.message);
             } catch {
-              setResponse('✅' + "*Should* be fine.");
+              setResponse('✅ ' + "*Should* be fine.");
             }
           } finally {
             setLoading(false);
@@ -131,15 +133,15 @@ const Index = () => {
           >
             U.S. Department of Treasury
           </ChakraLink>
-          . Additionally, I agree with the Terms of Service.
+          . Additionally, I have read and agreed with our <Disclaimer disclaimerText={disclaimerText} />.
         </Checkbox>
       </Main>
       <DarkModeSwitch />
       <Footer>
         <Text>
           By{" "}
-          <ChakraLink isExternal href="https://twitter.com/0xjjpa">
-            Jose Aguinaga
+          <ChakraLink isExternal href="https://enigma.sh">
+            E Nigma Technologies OÜ
           </ChakraLink>
           , for educational purposes only.
         </Text>
@@ -147,5 +149,10 @@ const Index = () => {
     </Container>
   );
 };
+
+export async function getStaticProps() {
+  const parsedDisclaimerText = await serialize(disclaimerText);
+  return { props: { disclaimerText: parsedDisclaimerText } };
+}
 
 export default Index;
