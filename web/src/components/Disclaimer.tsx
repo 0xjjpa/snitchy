@@ -54,7 +54,7 @@ export const Disclaimer = ({ disclaimerText }) => {
     <>
       <span onClick={onOpen}>Disclaimer</span>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="xl" scrollBehavior='inside'>
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Disclaimer</ModalHeader>

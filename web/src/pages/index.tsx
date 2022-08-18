@@ -91,7 +91,7 @@ const Index = ({ disclaimerText }) => {
           >
             U.S. OFAC Sanctions List
           </ChakraLink>{" "}
-          against {atob("VG9ybmFkbyBDYXNo")} by using a mock call against it’s proxy.
+          against {atob("VG9ybmFkbyBDYXNo")} by using an empty query.
         </Text>
         <InputGroup size="md">
           <Input
